@@ -13,25 +13,28 @@
 <body>
     <section class="container">
         <div class="row">
-            <div class="center" id="header">
+            <header class="center" id="header">
                 <h1>Christina's Code Quiz</h1>
-            </div>
+            </header>
             <div class="row">
                 <a href="#highscores" class="col-sm-9">See High Scores</a>
                 <div class="col-sm-3" id="timer">Timer: </div>
             </div>
         </div>
     </section>
+
     <div class="center" id="startOnly">
         <button class="btn btn-primary btn-lg" id="startButton">START THE QUIZ!</button>
         <p>Warning: Be ready! This quiz is timed, and if you get a question wrong, your remaining time decreases!</p>
     </div>
-    <section class="container" id="quizWindow">
-        <div class="row" id="question"></div>
-        <div class="row">
 
-        </div>
-    </section>
+    <div class="container center" id="quizWindow" style="visibility: hidden">
+        <div class="row" id="question">Test</div>
+        <button class="row btn btn-primary" type="button" id="answerA">A</button><br>
+        <button class="row btn btn-primary" type="button" id="answerB">B</button><br>
+        <button class="row btn btn-primary" type="button" id="answerC">C</button><br>
+        <button class="row btn btn-primary" type="button" id="answerD">D</button><br>
+    </div>
 
 <script src="script.js" type="text/javascript"></script>
 </body>
