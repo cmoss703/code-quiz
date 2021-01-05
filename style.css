@@ -1,0 +1,12 @@
+.center {
+    text-align: center;
+}
+
+#header {
+    margin: 20px;
+}
+
+#startButton {
+    margin-top: 120px;
+    margin-bottom: 20px;
+}
