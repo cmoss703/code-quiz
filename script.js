@@ -1,22 +1,21 @@
-var qIndex = 0;
 var startBtn = document.querySelector("#startButton");
-var timer = document.querySelector("#timer");
 var questionDiv = document.querySelector("#question");
 var answerA = document.querySelector("#answerA");
 var answerB = document.querySelector("#answerB");
 var answerC = document.querySelector("#answerC");
 var answerD = document.querySelector("#answerD");
 var answerDiv = document.querySelector("#answerDiv");
+var qIndex = 0;
 var rightAnswers = 0;
 var wrongAnswers = 0;
 var userScore = document.querySelector("#userScore");
 var userInitials = document.querySelector("#userInitials");
 var saveUser = document.querySelector("#saveUser");
 var displayInitials = document.querySelector("#displayInitials");
-// var quizWindow = document.querySelector("#quizWindow");
-// var hideStart = document.querySelector("#startOnly");
 
-var timeLeft = 0
+var timeLeft = 90;
+var secondsElapsed = 0;
+var timer = document.querySelector("#timer");
 
 const myQuestions = [
   {
@@ -55,16 +54,21 @@ function startQuiz() {
 
   // hides start button and warning text when button is clicked
 
-  document.querySelector("#startOnly").style.display="none";
+  document.querySelector("#startOnly").style.display = "none";
 
-  // show quizWindow - want it to be hidden by default
+  // show quizWindow
 
-  document.querySelector("#quizWindow").style.display="block";
+  document.querySelector("#quizWindow").style.display = "block";
 
   // start timer
-  createQuestions();
+
+  countTime();
 
   // add content from myQuestions to quiz window
+
+  createQuestions();
+
+
 
   // myQuestions.forEach(
   //   (currentQuestion, qIndex)
@@ -80,13 +84,14 @@ function startQuiz() {
 
 function checkAnswer() {
   if (this.innerHTML === myQuestions[qIndex].correctAnswer) {
-    answerDiv.innerHTML="Correct!";
+    answerDiv.innerHTML = "Correct!";
     rightAnswers++;
 
   } else {
     //timer subtract
-    answerDiv.innerHTML="Wrong, sorry! 10 seconds subtracted.";
+    answerDiv.innerHTML = "Wrong, sorry! 10 seconds subtracted.";
     wrongAnswers++;
+    timeLeft - 10;
   };
 
   if (qIndex < myQuestions.length - 1) {
@@ -141,7 +146,31 @@ function displayScore() {
   document.querySelector("#scoreWindow").style.display = "block";
 
   userScore.innerHTML = "You got " + rightAnswers + " questions correct and " + wrongAnswers + " questions incorrect!"
+  
+  var history = JSON.parse(localStorage.getItem("initials")) || [];
+  var htmldata = "";
+  for (let i = 0; i < history.length; i++) {
+    htmldata += `<h5>User : ${history[i].user}  Score:${history[i].score}</h5>`;
+  }
+  displayinitials.innerHTML = htmldata;
+}
 
+function countTime() {
+
+  timer.innerHTML = "Timer: " + (timeLeft - secondsElapsed) + " seconds left";
+
+  if (timeLeft > 0) {
+    var interval = setInterval(function () {
+      secondsElapsed++;
+
+    }, 1000);
+
+  } else {
+    alert("Oops! Time's up!");
+    displayScore();
+
+    //maybe also calculate number of questions missed?
+  }
 }
 
 // function startTimer() {
@@ -168,3 +197,19 @@ answerA.addEventListener("click", checkAnswer);
 answerB.addEventListener("click", checkAnswer);
 answerC.addEventListener("click", checkAnswer);
 answerD.addEventListener("click", checkAnswer);
+
+saveUser.addEventListener("click", function () {
+  var user = userInitials.value;
+  var history = JSON.parse(localStorage.getItem("initials")) || [];
+  history.push({
+    user: user,
+    score: rightAnswers
+  });
+  var htmldata = "";
+  for (let i = 0; i < history.length; i++) {
+    htmldata += `<h5>User: ${history[i].user}  - Score: ${history[i].score}</h5>`;
+  }
+  displayInitials.innerHTML = htmldata;
+  localStorage.setItem("initials", JSON.stringify(history));
+});
+
