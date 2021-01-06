@@ -13,7 +13,7 @@ var userInitials = document.querySelector("#userInitials");
 var saveUser = document.querySelector("#saveUser");
 var displayInitials = document.querySelector("#displayInitials");
 
-var timeLeft = 90;
+var timeLeft = 60;
 var secondsElapsed = 0;
 var timer = document.querySelector("#timer");
 
@@ -93,43 +93,28 @@ function checkAnswer() {
 
   } else {
     displayScore();
+    clearInterval(interval);
   }
 };
+
+var interval = ""
 
 function countTime() {
 
   if (timeLeft > 0) {
-    var interval = setInterval(function () {
+    interval = setInterval(function () {
       timeLeft--;
       timer.innerHTML = "Timer: " + (timeLeft) + " seconds left";
 
     }, 1000);
 
-  } else {
+  } else if (timeLeft < 0) {
     alert("Oops! Time's up!");
     displayScore();
 
     //maybe also calculate number of questions missed because of time?
   }
 };
-
-// function startTimer() {
-//   timer.addEventListener("click", function () {
-//     // checking zero because it is originally set to zero
-//     if (holdInterval === 0) {
-//       holdInterval = setInterval(function () {
-//         secondsLeft--;
-//         currentTime.textContent = "Time: " + secondsLeft;
-
-//         if (secondsLeft <= 0) {
-//           clearInterval(holdInterval);
-//           allDone();
-//           currentTime.textContent = "Time's up!";
-//         }
-//       }, 1000);
-//     }
-//     render(questionIndex);
-//   });
 
 function displayScore() {
 
