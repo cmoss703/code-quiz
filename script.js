@@ -28,26 +28,21 @@ const myQuestions = [
     answers: ["round(7.25)", "Math.rnd(7.25)", "Math.round(7.25)", "rnd(7.25)"],
     correctAnswer: "Math.round(7.25)"
   },
-  // {
-  //   question: "Which one of these is a JavaScript package manager?",
-  //   answers: {
-  //     a: "Node.js",
-  //     b: "TypeScript",
-  //     c: "npm",
-  //     d: "something else"
-  //   },
-  //   correctAnswer: "c"
-  // },
-  // {
-  //   question: "Which tool can you use to ensure code quality?",
-  //   answers: {
-  //     a: "Angular",
-  //     b: "jQuery",
-  //     c: "RequireJS",
-  //     d: "ESLint"
-  //   },
-  //   correctAnswer: "d"
-  // }
+  {
+    question: "Inside which HTML \<\> element do we put the JavaScript?",
+    answers: ["script","js","javascript","scripting"],
+    correctAnswer: "script"
+  },
+  {
+    question: "How do you create a function in JavaScript?",
+    answers: ["function = myFunction()","function myFunction()","function:myFunction()","function myFunction"],
+    correctAnswer: "function myFunction()"
+  },
+  {
+    question: "How do you find the number with the highest value of x and y?",
+    answers: ["ceil(x,y)","top(x,y)","Math.max(x,y)","Math.ceil(x,y)"],
+    correctAnswer: "Math.ceil(x,y)"
+  }
 ];
 
 function startQuiz() {
@@ -68,19 +63,17 @@ function startQuiz() {
 
   createQuestions();
 
-
-
-  // myQuestions.forEach(
-  //   (currentQuestion, qIndex)
-  // )
-
-  // IF answer is incorrect, subtract 10 seconds from the clock
-
-  // create global variable for timeLeft, subtract it
 };
 
+function createQuestions() {
 
+  questionDiv.innerHTML = myQuestions[qIndex].question;
 
+  answerA.innerHTML = myQuestions[qIndex].answers[0];
+  answerB.innerHTML = myQuestions[qIndex].answers[1];
+  answerC.innerHTML = myQuestions[qIndex].answers[2];
+  answerD.innerHTML = myQuestions[qIndex].answers[3];
+};
 
 function checkAnswer() {
   if (this.innerHTML === myQuestions[qIndex].correctAnswer) {
@@ -101,67 +94,14 @@ function checkAnswer() {
   } else {
     displayScore();
   }
-
 };
-
-function createQuestions() {
-
-  // for (var i = 0; i < myQuestions.length; i++) {
-  // qIndex = myQuestions[i]
-  questionDiv.innerHTML = myQuestions[qIndex].question;
-
-  answerA.innerHTML = myQuestions[qIndex].answers[0];
-  answerB.innerHTML = myQuestions[qIndex].answers[1];
-  answerC.innerHTML = myQuestions[qIndex].answers[2];
-  answerD.innerHTML = myQuestions[qIndex].answers[3];
-
-
-  // console.log(myQuestions[i].answers)
-
-  // for (var j = 0; j < myQuestions[i].answers.length; j++) {
-  //   answerButton = document.createElement("button");
-  //   answerButton.innerHTML = myQuestions[i].answers[j];
-  //   answerDiv.appendChild(answerButton);
-
-  // answerButton.addEventListener("click", function () {
-  //   if (answerButton.innerHTML === myQuestions[i].correctAnswer) {
-  //     alert("Correct!");
-
-  //   } else {
-  //     //timer subtract
-  //     alert("Wrong, sorry")
-  //   }
-  // });
-};
-
-// create button in it's own function, make "for loops" their own function
-// make event listener for each button 
-// separate loop after buttons are created
-// function call for the button is very important - buttons are a node list, you can't loop over them, change to array
-
-
-function displayScore() {
-
-  document.querySelector("#quizWindow").style.display = "none";
-  document.querySelector("#scoreWindow").style.display = "block";
-
-  userScore.innerHTML = "You got " + rightAnswers + " questions correct and " + wrongAnswers + " questions incorrect!"
-  
-  var history = JSON.parse(localStorage.getItem("initials")) || [];
-  var htmldata = "";
-  for (let i = 0; i < history.length; i++) {
-    htmldata += `<h5>User : ${history[i].user}  Score:${history[i].score}</h5>`;
-  }
-  displayinitials.innerHTML = htmldata;
-}
 
 function countTime() {
 
-  timer.innerHTML = "Timer: " + (timeLeft - secondsElapsed) + " seconds left";
-
   if (timeLeft > 0) {
     var interval = setInterval(function () {
-      secondsElapsed++;
+      timeLeft--;
+      timer.innerHTML = "Timer: " + (timeLeft) + " seconds left";
 
     }, 1000);
 
@@ -169,9 +109,9 @@ function countTime() {
     alert("Oops! Time's up!");
     displayScore();
 
-    //maybe also calculate number of questions missed?
+    //maybe also calculate number of questions missed because of time?
   }
-}
+};
 
 // function startTimer() {
 //   timer.addEventListener("click", function () {
@@ -191,12 +131,20 @@ function countTime() {
 //     render(questionIndex);
 //   });
 
+function displayScore() {
 
-startBtn.addEventListener("click", startQuiz)
-answerA.addEventListener("click", checkAnswer);
-answerB.addEventListener("click", checkAnswer);
-answerC.addEventListener("click", checkAnswer);
-answerD.addEventListener("click", checkAnswer);
+  document.querySelector("#quizWindow").style.display = "none";
+  document.querySelector("#scoreWindow").style.display = "block";
+
+  userScore.innerHTML = "You got " + rightAnswers + " questions correct and " + wrongAnswers + " questions incorrect!"
+  
+  var history = JSON.parse(localStorage.getItem("initials")) || [];
+  var htmldata = "";
+  for (let i = 0; i < history.length; i++) {
+    htmldata += `<h5>User : ${history[i].user}  Score:${history[i].score}</h5>`;
+  }
+  displayinitials.innerHTML = htmldata;
+};
 
 saveUser.addEventListener("click", function () {
   var user = userInitials.value;
@@ -213,3 +161,8 @@ saveUser.addEventListener("click", function () {
   localStorage.setItem("initials", JSON.stringify(history));
 });
 
+startBtn.addEventListener("click", startQuiz)
+answerA.addEventListener("click", checkAnswer);
+answerB.addEventListener("click", checkAnswer);
+answerC.addEventListener("click", checkAnswer);
+answerD.addEventListener("click", checkAnswer);
