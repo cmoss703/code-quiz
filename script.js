@@ -18,6 +18,8 @@ var timeLeft = 60;
 var timer = document.querySelector("#timer");
 var timerID;
 
+// questions were created as objects with an array for the answers
+
 const myQuestions = [
   {
     question: "Commonly used data types do NOT include:",
@@ -52,7 +54,7 @@ function startQuiz() {
 
   document.querySelector("#startOnly").style.display = "none";
 
-  // show quizWindow
+  // show quiz block
 
   document.querySelector("#quizWindow").style.display = "block";
 
@@ -66,6 +68,8 @@ function startQuiz() {
 
 }
 
+// This function takes each question and inserts the criteria into the quix window.
+
 function createQuestions() {
 
   questionDiv.innerHTML = myQuestions[qIndex].question;
@@ -76,27 +80,44 @@ function createQuestions() {
   answerD.innerHTML = myQuestions[qIndex].answers[3];
 }
 
+// Since this function is only called when a button is clicked (a question is answered), 
+// it uses this.innerhtml to check whether the text of the button that was clicked matches the correct answer.
+
 function checkAnswer() {
+
+  // If the answer matches, some text is shown above the next question to tell you that it was right. 
+  // it then adds one to the number of correct answers.
+
   if (this.innerHTML === myQuestions[qIndex].correctAnswer) {
     answerDiv.innerHTML = "Correct!";
     rightAnswers++;
 
+    // If the answer does not match, text is shown to tell you it was wrong. 
+    // One is added to the number of wrong answers.
+    // 10 seconds are subtracted from the timer.  
+
   } else {
-    //timer subtract
     answerDiv.innerHTML = "Wrong, sorry! 10 seconds subtracted.";
     wrongAnswers++;
     timeLeft -= 10;
   }
 
+  // As long as the qIndex is less than the number of questions, another question will be shown after one is answered.
+
   if (qIndex < myQuestions.length - 1) {
     qIndex++;
     createQuestions();
+
+    // Once all the questions have been answered (the qIndex matches the number of questions), the timer stops and the score is displayed. 
 
   } else {
     clearInterval(timerID);
     displayScore();
   }
 }
+
+// the timer will count down until it hits zero (or the interval is cleared in another function)
+// If the timer ever hits zero, an alert message is shown and the score is displayed. The quiz is over.
 
 function countTime() {
   timeLeft--;
@@ -108,6 +129,11 @@ function countTime() {
     displayScore();
   }
 }
+
+// When the score is displayed, the quiz block is hidden and the score block is shown. 
+// The amounts of right and wrong answers are shown.
+// The history of the previous scores and initials are also displayed.
+// The score is saved and able to be stored when the user enters their initials.
 
 function displayScore() {
 
@@ -124,6 +150,8 @@ function displayScore() {
   displayInitials.innerHTML = htmldata;
 }
 
+// When the save button is clicked, the users initials and score are added to the list of saved items.
+
 saveUser.addEventListener("click", function () {
   var user = userInitials.value;
   var history = JSON.parse(localStorage.getItem("initials")) || [];
@@ -138,6 +166,8 @@ saveUser.addEventListener("click", function () {
   displayInitials.innerHTML = htmldata;
   localStorage.setItem("initials", JSON.stringify(history));
 });
+
+// These are the other button listeners. for the start button, answer buttons, and scores button.
 
 startBtn.addEventListener("click", startQuiz);
 answerA.addEventListener("click", checkAnswer);

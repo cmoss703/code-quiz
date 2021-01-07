@@ -6,13 +6,15 @@ This webpage was designed to generate a Javascript quiz with a timer and a score
 
 When the user clicks start, the timer starts counting down from 60 seconds. If the user gets an answer wrong, 10 seconds are subtracted from the timer.
 
-The number of correct and incorrect answers are recorded and shown at the end of the quiz. The user has the option to save their initials and score. Once saved, the user is shown other scores from this quiz.
+The number of correct and incorrect answers are recorded and shown at the end of the quiz. The user has the option to save their initials and score. Once saved, the user is shown other scores from this quiz. The scores can also be accessed via a button at the top of the page at any time.
 
 ## WHAT WAS DONE?
 
 The Javascript document is where most of the work was done. Some bootstrap and css are also used.
 
 There are three different UIs that the user is shown depending on the stage of the quiz. These are displayed or hidden (for example, when the start button is clicked, it is hidden and the quiz block is shown.)
+
+The steps taken are outlined in the comments to the code in javascript. I would love some feedback!
 
 ## DEPLOYED!
 
