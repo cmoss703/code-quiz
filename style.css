@@ -2,18 +2,15 @@
     text-align: center;
 };
 
-#header {
+header {
     margin: 20px;
 };
 
+.header {
+    margin-bottom: 30px;
+}
+
 #startButton {
+    margin-top: 30px;
     margin-bottom: 20px;
 };
-
-#timer {
-    margin-bottom: 30px;
-};
-
-#scoreWindow {
-    margin-top: 30px;
-}

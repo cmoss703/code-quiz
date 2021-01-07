@@ -145,7 +145,7 @@ function displayScore() {
   var history = JSON.parse(localStorage.getItem("initials")) || [];
   var htmldata = "";
   for (var i = 0; i < history.length; i++) {
-    htmldata += `<h5>User : ${history[i].user}  Score:${history[i].score}</h5>`;
+    htmldata += `<h5>User: ${history[i].user}  Score: ${history[i].score}</h5>`;
   }
   displayInitials.innerHTML = htmldata;
 }
@@ -161,7 +161,7 @@ saveUser.addEventListener("click", function () {
   });
   var htmldata = "";
   for (var i = 0; i < history.length; i++) {
-    htmldata += `<h5>User: ${history[i].user}  - Score:  ${history[i].score}</h5>`;
+    htmldata += `<h5>User:  ${history[i].user}  - Score:   ${history[i].score}</h5>`;
   }
   displayInitials.innerHTML = htmldata;
   localStorage.setItem("initials", JSON.stringify(history));
