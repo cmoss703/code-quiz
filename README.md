@@ -26,8 +26,10 @@ This project was successfully deployed. Need proof? Click the links below to giv
 
 Here are some screenshots of my webpage in action:
 
-![Start Page]()
+![Start Page](images/start.png)
 
-![Quiz and Timer in action]()
+![Quiz and Timer in action](images/question2.png)
 
-![Scores History]()
+![Out of Time](images/timeup.png)
+
+![Scores](images/score.png)
