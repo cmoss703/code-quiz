@@ -9,12 +9,12 @@ var qIndex = 0;
 var rightAnswers = 0;
 var wrongAnswers = 0;
 var userScore = document.querySelector("#userScore");
+var prevScores = document.querySelector("#prevScores")
 var userInitials = document.querySelector("#userInitials");
 var saveUser = document.querySelector("#saveUser");
 var displayInitials = document.querySelector("#displayInitials");
 
 var timeLeft = 60;
-var secondsElapsed = 0;
 var timer = document.querySelector("#timer");
 var timerID;
 
@@ -31,17 +31,17 @@ const myQuestions = [
   },
   {
     question: "Inside which HTML \<\> element do we put the JavaScript?",
-    answers: ["script","js","javascript","scripting"],
+    answers: ["script", "js", "javascript", "scripting"],
     correctAnswer: "script"
   },
   {
     question: "How do you create a function in JavaScript?",
-    answers: ["function = myFunction()","function myFunction()","function:myFunction()","function myFunction"],
+    answers: ["function = myFunction()", "function myFunction()", "function:myFunction()", "function myFunction"],
     correctAnswer: "function myFunction()"
   },
   {
     question: "How do you find the number with the highest value of x and y?",
-    answers: ["ceil(x,y)","top(x,y)","Math.max(x,y)","Math.ceil(x,y)"],
+    answers: ["ceil(x,y)", "top(x,y)", "Math.max(x,y)", "Math.ceil(x,y)"],
     correctAnswer: "Math.ceil(x,y)"
   }
 ];
@@ -58,13 +58,13 @@ function startQuiz() {
 
   // start timer
 
-  timerID = setInterval(countTime, 1000)
+  timerID = setInterval(countTime, 1000);
 
   // add content from myQuestions to quiz window
 
   createQuestions();
 
-};
+}
 
 function createQuestions() {
 
@@ -74,7 +74,7 @@ function createQuestions() {
   answerB.innerHTML = myQuestions[qIndex].answers[1];
   answerC.innerHTML = myQuestions[qIndex].answers[2];
   answerD.innerHTML = myQuestions[qIndex].answers[3];
-};
+}
 
 function checkAnswer() {
   if (this.innerHTML === myQuestions[qIndex].correctAnswer) {
@@ -86,7 +86,7 @@ function checkAnswer() {
     answerDiv.innerHTML = "Wrong, sorry! 10 seconds subtracted.";
     wrongAnswers++;
     timeLeft -= 10;
-  };
+  }
 
   if (qIndex < myQuestions.length - 1) {
     qIndex++;
@@ -96,34 +96,33 @@ function checkAnswer() {
     clearInterval(timerID);
     displayScore();
   }
-};
+}
 
 function countTime() {
   timeLeft--;
   timer.innerHTML = "Timer: " + (timeLeft) + " seconds left";
 
-  if (timeLeft <= 0){
+  if (timeLeft <= 0) {
     clearInterval(timerID);
     alert("Oops! Out of time!");
     displayScore();
-
   }
-};
+}
 
 function displayScore() {
 
   document.querySelector("#quizWindow").style.display = "none";
   document.querySelector("#scoreWindow").style.display = "block";
 
-  userScore.innerHTML = "You got " + rightAnswers + " questions correct and " + wrongAnswers + " questions incorrect!"
-  
+  userScore.innerHTML = "You got " + rightAnswers + " questions correct and " + wrongAnswers + " questions incorrect!";
+
   var history = JSON.parse(localStorage.getItem("initials")) || [];
   var htmldata = "";
-  for (let i = 0; i < history.length; i++) {
+  for (var i = 0; i < history.length; i++) {
     htmldata += `<h5>User : ${history[i].user}  Score:${history[i].score}</h5>`;
   }
-  displayinitials.innerHTML = htmldata;
-};
+  displayInitials.innerHTML = htmldata;
+}
 
 saveUser.addEventListener("click", function () {
   var user = userInitials.value;
@@ -133,15 +132,16 @@ saveUser.addEventListener("click", function () {
     score: rightAnswers
   });
   var htmldata = "";
-  for (let i = 0; i < history.length; i++) {
-    htmldata += `<h5>User: ${history[i].user}  - Score: ${history[i].score}</h5>`;
+  for (var i = 0; i < history.length; i++) {
+    htmldata += `<h5>User: ${history[i].user}  - Score:  ${history[i].score}</h5>`;
   }
   displayInitials.innerHTML = htmldata;
   localStorage.setItem("initials", JSON.stringify(history));
 });
 
-startBtn.addEventListener("click", startQuiz)
+startBtn.addEventListener("click", startQuiz);
 answerA.addEventListener("click", checkAnswer);
 answerB.addEventListener("click", checkAnswer);
 answerC.addEventListener("click", checkAnswer);
 answerD.addEventListener("click", checkAnswer);
+prevScores.addEventListener("click", displayScore);

@@ -1,20 +1,15 @@
 .center {
     text-align: center;
-}
+};
 
 #header {
     margin: 20px;
-}
+};
 
 #startButton {
-    margin-top: 30px;
     margin-bottom: 20px;
-}
+};
 
-#quizWindow {
-    margin-top: 30px;
-}
-
-/* #question {
-    text-align: center;
-} */
+#prevScores {
+    margin-bottom: 30px;
+};

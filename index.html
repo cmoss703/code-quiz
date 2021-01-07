@@ -17,7 +17,8 @@
                 <h1>Christina's Code Quiz</h1>
             </header>
             <div class="row">
-                <a href="#highscores" class="col-sm-9">See High Scores</a>
+                <button class="btn btn-outline-dark col-sm-2" id="prevScores">See Previous Scores</button>
+                <div class="col-sm-7"></div>
                 <div class="col-sm-3" id="timer">Timer: </div>
             </div>
         </div>
@@ -39,12 +40,13 @@
 
     <div id="scoreWindow" class="container" style="display: none;">
         <h3 id="userScore"></h3>
+        <h4>Enter your initials to save your score!</h4>
         <input id="userInitials" type="text">
         <button id="saveUser" class="btn btn-primary">Submit Initials</button>
         <div id="displayInitials"></div>
     </div>
 
-<script src="script.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
 </body>
 
 </html>
