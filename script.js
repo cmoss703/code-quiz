@@ -16,6 +16,7 @@ var displayInitials = document.querySelector("#displayInitials");
 var timeLeft = 60;
 var secondsElapsed = 0;
 var timer = document.querySelector("#timer");
+var timerID;
 
 const myQuestions = [
   {
@@ -57,7 +58,7 @@ function startQuiz() {
 
   // start timer
 
-  countTime();
+  timerID = setInterval(countTime, 1000)
 
   // add content from myQuestions to quiz window
 
@@ -84,7 +85,7 @@ function checkAnswer() {
     //timer subtract
     answerDiv.innerHTML = "Wrong, sorry! 10 seconds subtracted.";
     wrongAnswers++;
-    timeLeft - 10;
+    timeLeft -= 10;
   };
 
   if (qIndex < myQuestions.length - 1) {
@@ -92,27 +93,20 @@ function checkAnswer() {
     createQuestions();
 
   } else {
+    clearInterval(timerID);
     displayScore();
-    clearInterval(interval);
   }
 };
 
-var interval = ""
-
 function countTime() {
+  timeLeft--;
+  timer.innerHTML = "Timer: " + (timeLeft) + " seconds left";
 
-  if (timeLeft > 0) {
-    interval = setInterval(function () {
-      timeLeft--;
-      timer.innerHTML = "Timer: " + (timeLeft) + " seconds left";
-
-    }, 1000);
-
-  } else if (timeLeft < 0) {
-    alert("Oops! Time's up!");
+  if (timeLeft <= 0){
+    clearInterval(timerID);
+    alert("Oops! Out of time!");
     displayScore();
 
-    //maybe also calculate number of questions missed because of time?
   }
 };
 
